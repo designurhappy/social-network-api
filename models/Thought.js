@@ -1,36 +1,40 @@
 const { Schema, model } = require('mongoose');
 const moment = require('moment');
-const ThoughtSchema = new Schema(
-    {
-      thoughtText: {
-        type: String,
-        required: 'Thought is Required',
-        minlength: 1,
-        maxlength: [280, "Thought must be 280 characters or less (don't over think it!)"]
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
-      },
-     username: {
-       type: String,
-       required: 'Please enter your Username'
-     }
-    //  reactions: []
+const reactionSchema = require('./Reaction');
+
+const thoughtSchema = new Schema(
+  {
+    thoughtText: {
+      type: String,
+      required: 'You need to leave a thought!',
+      minlength: 1,
+      maxlength: 280,
     },
-    {
-      toJSON: {
-        virtuals: true,
-        getters: true
-      },
-      id: false
-    }
-  );
-// create the User model using the UserSchema
-const Thought = model('Thought', ThoughtSchema);
-// ThoughtSchema.virtual('reactionsCount').get(function() {
-//   return this.reactions.length;
-// });
-// export the User model
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a'),
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions: [reactionSchema],
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
+
+thoughtSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length;
+});
+
+const Thought = model('Thought', thoughtSchema);
+
 module.exports = Thought;
+
+  
