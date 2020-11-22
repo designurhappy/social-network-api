@@ -24,7 +24,7 @@ The following commands should be run to install dependencies:
 
 
 ## GitHub Respository
-https://github.com/designurhappy/ecommerce-back-end.git
+
 
 
 ## Questions
