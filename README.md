@@ -4,6 +4,9 @@ API for a social network web application where users can share their thoughts, r
 ![ScreenShot](./Social-Network-API.JPG)
   
 
+## Demonstration video
+[Social-Network-API Demonstration](./Demonstration_Social-Network-API.webm)
+
 
  
 ## Installation
